@@ -1,0 +1,76 @@
+@startuml CinemaAbyss
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+title Container diagram
+
+Person(user, "User")
+LAYOUT_LANDSCAPE()
+
+System_Ext(recommendation_service, "Рекомендательная система")
+
+System_Boundary(clients, "Clients") {
+    Container(web, "Веб-приложение", "JS/Nuxt")
+    Container(mobile, "Мобильное приложение Android/IOS", "Flutter")
+    Container(desktop, "Десктопное приложение Windows/Linux/macOS", "Flutter")
+}
+
+Container(lb, "Блансировщик нагрузки", "Nginx")
+
+System_Boundary(microservices, "Microservices") {
+    System_Boundary(movies_microservices, "Movies microservices") {
+        Container(movies_service, "Сервис управления фильмами", "Go")
+        ContainerDb(movies_database, "База данных фильмов", "Postgresql")
+    }
+    System_Boundary(users_microservices, "Users microservices") {
+        Container(users_service, "Сервис управления пользователями", "Python")
+        ContainerDb(user_database, "База данных пользователей", "Postgresql")
+    }
+    System_Boundary(payments_microservices, "Payments microservices") {
+        Container(payments_service, "Сервис управления платежами и подписками", "Python")
+        ContainerDb(payments_database, "База данных платежей и подписок", "Postgresql")
+    }
+    Container(events_service, "Шина данных для обработки event", "Kafka")
+}
+
+
+System_Boundary(bff, "Backend-for-forntend") {
+    Container(web_bff, "Сервис управления фильмами", "Go/Python")
+    Container(mobile_bff, "Сервис управления пользователями", "Go/Python")
+    Container(desktop_bff, "Сервис управления платежами и подписками", "Go/Python")
+}
+
+
+
+Rel(user, web, "")
+Rel(user, mobile, "")
+Rel(user, desktop, "")
+
+Rel(web, lb, "Запрос", "JSON/HTTPS")
+Rel(mobile, lb, "Запрос", "JSON/HTTPS")
+Rel(desktop, lb, "Запрос", "JSON/HTTPS")
+
+Rel(lb, web_bff, "", "JSON/HTTPS")
+Rel(lb, mobile_bff, "", "JSON/HTTPS")
+Rel(lb, desktop_bff, "", "JSON/HTTPS")
+
+Rel(web_bff, movies_service, "", "JSON/HTTPS")
+Rel(web_bff, payments_service, "", "JSON/HTTPS")
+Rel(web_bff, users_service, "", "JSON/HTTPS")
+
+Rel(mobile_bff, movies_service, "", "JSON/HTTPS")
+Rel(mobile_bff, payments_service, "", "JSON/HTTPS")
+Rel(mobile_bff, users_service, "", "JSON/HTTPS")
+
+Rel(desktop_bff, movies_service, "", "JSON/HTTPS")
+Rel(desktop_bff, payments_service, "", "JSON/HTTPS")
+Rel(desktop_bff, users_service, "", "JSON/HTTPS")
+
+Rel(movies_service, events_service, "Pub/Sub movies")
+Rel(payments_service, events_service, "Pub/Sub payments")
+Rel(users_service, events_service, "Pub/Sub users")
+
+Rel(movies_service, movies_database, "Получение данных", "SQL/TCP")
+Rel(payments_service, payments_database, "Получение данных", "SQL/TCP")
+Rel(users_service, user_database, "Получение данных", "SQL/TCP")
+
+
+Rel_D(movies_service, recommendation_service, "")
