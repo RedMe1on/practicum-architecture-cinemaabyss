@@ -7,8 +7,7 @@ import requests
 from conf import Settings
 
 app = FastAPI(
-    title="Temerature API",
-    description="API для имитации работы удаленного датчика",
+    title="Proxy  API",
     version="1.0.0",
 )
 
@@ -62,7 +61,6 @@ async def proxy_request(target_url: str, request: Request) -> requests.Response:
     headers.pop("host", None)
     body = await request.body()
     url = f"{target_url}{request.url.path}"
-    print(url)
     return requests.request(
         method=request.method,
         url=url,
