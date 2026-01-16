@@ -10,12 +10,15 @@
 
 # Задание 3
 
-[Скриншот вызова api/movies ](diagrams/domain-movies.png)
-[Скриншот логов event-service в k8s](diagrams/events-k8s-logs.png)
+[Скриншот вызова api/movies ](diagrams/domain-movies.png)  
+
+[Скриншот логов event-service в k8s](diagrams/events-k8s-logs.png)  
+
 [Скриншот тестов в k8s](diagrams/k8s-tests.png)
 
 # Задание 4
 
-[Скриншот вызова api/movies ](diagrams/helm-host-output.png)
+[Скриншот вызова api/movies ](diagrams/helm-host-output.png)  
+
 [Скриншот скриншот развертывания helm в k8s](diagrams/helm.png)
 
