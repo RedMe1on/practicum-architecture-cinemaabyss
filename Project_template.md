@@ -61,7 +61,7 @@
 Приложите скриншот тестов и скриншот состояния топиков Kafka из UI http://localhost:8090 
 
 [Скриншот тестов](diagrams/events-tests.png)
-[Скриншот состояния топиков Kafka](diagrams/kafka-topics)
+[Скриншот состояния топиков Kafka](diagrams/kafka-topics.png)
 
 # Задание 3
 
@@ -279,6 +279,9 @@ cat .docker/config.json | base64
 #### Шаг 3
 Добавьте сюда скриншота вывода при вызове https://cinemaabyss.example.com/api/movies и  скриншот вывода event-service после вызова тестов.
 
+[Скриншот вызова api/movies ](diagrams/domain-movies.png)
+[Скриншот логов event-service в k8s](diagrams/events-k8s-logs.png)
+[Скриншот тестов в k8s](diagrams/k8s-tests.png)
 
 # Задание 4
 Для простоты дальнейшего обновления и развертывания вам как архитектуру необходимо так же реализовать helm-чарты для прокси-сервиса и проверить работу 
