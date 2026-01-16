@@ -5,7 +5,8 @@
 
 # Задание 2
 
-[Скриншот тестов](diagrams/events-tests.png)
+[Скриншот тестов](diagrams/events-tests.png)  
+
 [Скриншот состояния топиков Kafka](diagrams/kafka-topics.png)
 
 # Задание 3
